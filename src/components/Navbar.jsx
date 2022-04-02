@@ -63,8 +63,6 @@ align-items:center;
 const Title = styled.h1`
   position: static;
   height: 20px;
-  left: 0%;
-  right: 0%;
   top: calc(50% - 20px / 2 - 16px);
   margin-left:25px;
   font-family: "Raleway";
@@ -74,6 +72,7 @@ const Title = styled.h1`
   align-items: center;
   text-align: center;
   text-transform: uppercase;
+  cursor:pointer;
 `;
 const CentralContent= styled.div`
 flex:1;

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import Navbar from './components/Navbar'
+import HomePage from './pages/HomePage'
+import Product from './pages/Product'
 
 export default class App extends Component {
   render() {
     return (
       <div>
-        <Navbar/>
+        <Product/>
       </div>
     )
   }
