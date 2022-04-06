@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom'
 import  styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import product from '../assets/product.png'
-
+import {mobile} from '../responsive'
 export default class Product extends Component {
   render() {
     return (
       <Container>
-        <Navbar/>
+      
        
         <Wrapper>
-        {/* <Images>
-        <SideImage src={product} />
-        <SideImage src={product} />
-        <SideImage src={product} />
-        </Images> */}
           <ImageConatiner>
             <Image src={product} />
           </ImageConatiner>
@@ -25,14 +21,16 @@ export default class Product extends Component {
 
             <Title>Size:</Title>
             <FilterSize>
-             <SizeOption>XS</SizeOption>
+    
              <SizeOption>S</SizeOption>
              <SizeOption>M</SizeOption>
-             <SizeOption>L</SizeOption>
+    
             </FilterSize>
             <PriceTitle>Price:</PriceTitle>
             <Price>$50.00</Price>
+            <Link to='/cart'>
             <Button>ADD TO CART</Button>
+            </Link>
             <Desc>Find stunning women's cocktail dresses and party dresses. 
               Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</Desc>
           </InfoContainer>
@@ -55,15 +53,33 @@ display:flex;
 align-items:center;
 justify-content:center;
 
+${mobile({
+  padding:'15px',
+  flexDirection:'column',
+
+
+  })}
+
 `
 const ImageConatiner = styled.div`
 flex:1;
 margin-left:100px;
+${mobile({
+  marginLeft:'45px',
+  alignItems:'center',
+  justifyContent:'center',
+  marginTop:'20px'
+
+  })}
 `
 
 const Image = styled.img`
 width:90%;
 object-fit:cover;
+${mobile({
+width:'70%',
+objectFit:'contain'
+  })}
 `
 
 const Size =styled.div`
