@@ -14,6 +14,7 @@ export default class CategoryItem extends Component {
     const { item } = this.props;
     return (
       <SubContainer key={item.id}>
+        <Wrapper>
         <Images>
           <Image src={product} />
           <Icon>
@@ -28,11 +29,16 @@ export default class CategoryItem extends Component {
           <Title>{item.name}</Title>
           <SubTitle>{item.price}</SubTitle>
         </Info>
+        </Wrapper>
       </SubContainer>
     );
   }
 }
 
+
+const Wrapper =styled.div`
+
+`
 const Circle = styled.div`
   opacity: 0;
   border-radius: 50%;

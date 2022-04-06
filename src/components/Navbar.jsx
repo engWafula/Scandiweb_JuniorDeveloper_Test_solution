@@ -104,6 +104,13 @@ const Title = styled.h1`
   text-transform: uppercase;
   cursor:pointer;
 
+
+
+  &:hover  {
+    border-bottom:3px solid  #5ece7b;
+
+  }
+
   ${mobile({
     height: '15px',
     fontWeight: '400',
