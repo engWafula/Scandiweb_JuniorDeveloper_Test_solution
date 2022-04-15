@@ -11,12 +11,12 @@ export default class CategoryItem extends Component {
     super(props);
   }
   render() {
-    const { item } = this.props;
+    const { product } = this.props;
     return (
-      <SubContainer key={item.id}>
+      <SubContainer key={product.id}>
         <Wrapper>
         <Images>
-          <Image src={product} />
+          <Image src={product.gallery[0]} />
           <Icon>
             <Circle>
               <Link to='/product'>
@@ -26,8 +26,10 @@ export default class CategoryItem extends Component {
           </Icon>
         </Images>
         <Info>
-          <Title>{item.name}</Title>
-          <SubTitle>{item.price}</SubTitle>
+          <Title>{product.name}</Title>
+       
+          <SubTitle>{product.prices[0].currency.symbol} {product.prices[0].amount}</SubTitle>
+     
         </Info>
         </Wrapper>
       </SubContainer>
@@ -78,6 +80,7 @@ const Icon = styled.div`
 
 const SubContainer = styled.div`
   display: flex;
+  flex: 1 1 30%;
   height: 60vh;
   margin: 5px;
   padding: 5px;
@@ -85,7 +88,7 @@ const SubContainer = styled.div`
   min-width: 280px;
   position: relative;
   background-color: white;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   transition: box-shadow 0.3s;
   &:hover {
     border-radius: "10px";

@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
-import  styled from 'styled-components'
 import pic from "../assets/pic.svg";
 import pic1 from "../assets/cross.svg";
 import shop from "../assets/shop.svg";
-import drop from "../assets/drop.svg";
+import  styled from 'styled-components'
 import MiniCart from './MiniCart'
 import {mobile} from '../responsive'
+import Currencies from './Currencies'
 
 
 export default class Navbar extends Component {
-   handleClick = action => {
-    if (!action) return;
 
-    if (this.props.onClick) this.props.onClick(action);
-    
-  };
 
   render() {
     return (
@@ -31,22 +26,7 @@ export default class Navbar extends Component {
         </Pic>
         </CentralContent>
         <RightContent>
-          <Left>
-          <Currency >$</Currency>
-          <StyledUl>
-          <DropDownLi>
-          <Dropdown onClick={() => this.handleClick("DropDown")}>
-          <img src={drop} alt="shoping" width={6} height={3} />
-          </Dropdown>
-          <DropDownContent>
-          
-            <SubA onClick={() => this.handleClick("Link1")}>$ USD</SubA>
-            <SubA onClick={() => this.handleClick("Link2")}>€ EUR</SubA>
-            <SubA onClick={() => this.handleClick("Link3")}>¥ JYP</SubA>
-          </DropDownContent>
-          </DropDownLi>
-          </StyledUl>
-          </Left>
+          <Currencies/>
           <Basket>
           <MiniCart/> 
           </Basket>

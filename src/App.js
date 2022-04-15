@@ -4,8 +4,7 @@ import HomePage from './pages/HomePage'
 import Product from './pages/Product'
 import Navbar from './components/Navbar'
 import Cart from './pages/Cart'
-import CurrencyDropdown from './components/MiniCart'
-import MiniCart from './components/MiniCart'
+
 
 
 export default class App extends Component {
