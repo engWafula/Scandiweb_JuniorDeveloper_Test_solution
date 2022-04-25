@@ -4,20 +4,32 @@ import  styled from 'styled-components'
 import Navbar from '../components/Navbar'
 import product from '../assets/product.png'
 import {mobile} from '../responsive'
-export default class Product extends Component {
+import {connect} from  'react-redux'
+import {fetchProduct,AddCart} from '../redux/actions'
+import HTMLReactParser from 'html-react-parser';
+
+
+ class Product extends Component {
+  componentDidMount() {
+    this.props.fetchProduct();
+   
+  }
   render() {
+    const productDetails = this.props.product
+    const id =this.props.product.id
+    console.log(id)
     return (
       <Container>
       
        
         <Wrapper>
           <ImageConatiner>
-            <Image src={product} />
+            <Image src={productDetails.gallery} />
           </ImageConatiner>
 
           <InfoContainer>
-            <Title>Appolo</Title>
-            <SubTitle>Running Short</SubTitle>
+            <Title>{productDetails.brand}</Title>
+            <SubTitle>{productDetails.name}</SubTitle>
 
             <Title>Size:</Title>
             <FilterSize>
@@ -27,12 +39,11 @@ export default class Product extends Component {
     
             </FilterSize>
             <PriceTitle>Price:</PriceTitle>
-            <Price>$50.00</Price>
-            <Link to='/cart'>
-            <Button>ADD TO CART</Button>
-            </Link>
-            <Desc>Find stunning women's cocktail dresses and party dresses. 
-              Stand out in lace and metallic cocktail dresses and party dresses from all your favorite brands.</Desc>
+            {/* <Price>{productDetails.prices[0].currency.symbol} {productDetails.prices[0].amount}</Price> */}
+            {/* <Link to='/cart'> */}
+            <Button onClick={()=>this.props.AddCart()}>ADD TO CART</Button>
+            {/* </Link> */}
+             {/* <Desc> {HTMLReactParser(productDetails.description)}</Desc>   */}
           </InfoContainer>
         </Wrapper>
       </Container>
@@ -40,7 +51,19 @@ export default class Product extends Component {
   }
 }
 
+const mapStateToProps=state=>({
+  product: state.product.product
+})
 
+function mapDispatchToProps(dispatch){
+  return{
+      fetchProduct:()=>dispatch(fetchProduct()),
+      AddCart:item=>dispatch(AddCart(item))
+   
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Product )
 
 const Container=styled.div`
 
@@ -82,8 +105,8 @@ objectFit:'contain'
   })}
 `
 
-const Size =styled.div`
-`
+
+
 const Price =styled.h1`
 font-family: Raleway;
 font-size: 24px;
@@ -153,7 +176,7 @@ text-align: left;
 `
 const Desc =styled.p`
 
-width: 292px;
+width: 100%;
 height: 103px;
 left: calc(50% - 292px/2 + 355px);
 bottom: 72px;
@@ -166,6 +189,7 @@ line-height: 159.96%;
 
 
 color: #1D1F22;
+
 `
 
 const FilterSize=styled.div`

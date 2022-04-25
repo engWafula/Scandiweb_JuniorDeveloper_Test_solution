@@ -1,27 +1,28 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import data from "./data";
-import product from "../assets/product.png";
 import shop from "../assets/shop.svg";
 import { mobile } from "../responsive";
+import {connect} from  'react-redux'
+import {fetchProduct,AddCart} from '../redux/actions'
 
-export default class CategoryItem extends Component {
+ class CategoryItem extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    const { product } = this.props;
+    const { product} = this.props;
     return (
       <SubContainer key={product.id}>
+         <Link to='/product'>
         <Wrapper>
         <Images>
           <Image src={product.gallery[0]} />
           <Icon>
-            <Circle>
-              <Link to='/product'>
+            <Circle onClick={()=>this.props.AddCart()}>
+             
               <Cart src={shop} alt="shoping" />
-              </Link>
+              
             </Circle>
           </Icon>
         </Images>
@@ -32,10 +33,24 @@ export default class CategoryItem extends Component {
      
         </Info>
         </Wrapper>
+        </Link>
       </SubContainer>
     );
   }
 }
+
+
+
+function mapDispatchToProps(dispatch){
+  return{
+     
+      AddCart:item=>dispatch(AddCart(item))
+   
+  }
+}
+
+export default connect(null, mapDispatchToProps)(CategoryItem)
+
 
 
 const Wrapper =styled.div`
@@ -80,7 +95,7 @@ const Icon = styled.div`
 
 const SubContainer = styled.div`
   display: flex;
-  flex: 1 1 30%;
+  flex: 0 0 33.3333%;
   height: 60vh;
   margin: 5px;
   padding: 5px;

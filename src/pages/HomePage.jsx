@@ -6,14 +6,18 @@ import {mobile} from '../responsive'
 export default class HomePage extends Component {
   render() {
     return (
-      <div>
+      <Container>
        <Heading>Category Name</Heading>
        <Categories/>
-      </div>
+      </Container>
     )
   }
 }
 
+
+const Container = styled.div`
+background:white;
+`
 
 const Heading =styled.h1`
 font-family: Raleway;

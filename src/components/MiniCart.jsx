@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import shop from "../assets/shop.svg";
 import product from '../assets/product.png'
+import { Link } from "react-router-dom";
+import  {connect} from  'react-redux'
 
 
 
@@ -22,7 +24,7 @@ class MiniCart extends Component {
           </Cart>
           </Dropbtn>
           <DropDownContent>
-            <Title>My Bag 2 items</Title>
+            <Title>My Bag,{this.props.numberCart} items</Title>
            <Wrapper>
 
            <CartCard>
@@ -37,9 +39,21 @@ class MiniCart extends Component {
              <SizeOption>S</SizeOption>
              <SizeOption>M</SizeOption>
             </FilterSize>
-             
+            <PriceTotal>Total</PriceTotal> 
+          
+            <ViewBag>
+     
+              <Heading>
+              VIEW BAG
+                </Heading>
+           
+              </ViewBag> 
+            
       </InfoContainer>
-      {/* <PriceTotal>Total</PriceTotal>   */}
+  
+     
+    
+      
       <CartQuantity>
         <Buttons>
           <QuantityButtonDecrement
@@ -47,16 +61,18 @@ class MiniCart extends Component {
           >
             -
           </QuantityButtonDecrement>
-          <Quantity>2</Quantity>
+          <Quantity>{this.props.numberCart}</Quantity>
           <QuantityButtonIncrement
 
           >
             +
           </QuantityButtonIncrement>
-         
+          <PriceTotal>$100</PriceTotal> 
+          <CheckOut><ButtonTitle>CHECK OUT</ButtonTitle></CheckOut>
         </Buttons>
-
+       
         <CartImage src={product} alt='changeme' />
+      
       </CartQuantity>
 
      
@@ -68,10 +84,79 @@ class MiniCart extends Component {
     );
   };
 }
+const mapStateToProps = state =>{
+  return{
+      numberCart:state.cart.numberCart
+  }
+}
+export default connect(mapStateToProps,null)(MiniCart)
 
-export default MiniCart;
+
+const ButtonTitle=styled.h4`
+position: static;
+width: 100%;
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 600;
+font-size: 10px;
+padding:10px;
+align-items: center;
+text-align: center;
+text-transform: uppercase;
+color: white;
+`
+
+const Heading= styled.h4`
+position: static;
+width: 100%;
+font-family: 'Raleway';
+font-style: normal;
+font-weight: 600;
+font-size: 10px;
+padding:10px;
+align-items: center;
+text-align: center;
+text-transform: uppercase;
+color: #1D1F22;
+`
+const CheckOut =styled.button`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding:15px;
+position:absolute;
+width: 100px;
+height: 20px;
+left: 0px;
+top: 120px;
+background: #5ECE7B;
+border: 1px solid #1D1F22;
+box-sizing: border-box;
+cursor: pointer;
+border: none;
 
 
+`
+const ViewBag = styled.button`
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding:15px;
+position: absolute;
+text-color:white;
+color:white;
+width: 100px;
+height: 20px;
+left: 0px;
+top: 160px;
+cursor: pointer;
+background: #FFFFFF;
+border: 1px solid #1D1F22;
+box-sizing: border-box;
+
+`
 
 const Cart = styled.div`
 height: 13.008859634399414px;
@@ -91,17 +176,12 @@ font-weight: 500;
 line-height: 18px;
 letter-spacing: 0em;
 text-align: left;
-margin-top:10px;
+margin-top:20px;
+
 
 `
 
-const StyledUl = styled.ul`
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: #333;
-`;
+
 
 const StyledLi = styled.li`
   float: left;
@@ -119,7 +199,7 @@ const DropDownContent = styled.div`
   display: none;
   position: absolute;
   background-color: #f9f9f9;
-  min-width: 160px;
+ 
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
   right: 40px;
@@ -133,35 +213,15 @@ border-radius: 0px;
 const DropDownLi = styled(StyledLi)`
   display: inline-block;
   
-  &:hover {
-   
-  }
+
   &:hover ${DropDownContent} {
     display: block;
   }
 `;
 
-const StyledA = styled.a`
-  display: inline-block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  &:hover {
-    background-color: red;
-  }
-`;
 
-const SubA = styled.a`
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  text-align: left;
-  &:hover {
-    background-color: #f1f1f1;
-  }
-`;
+
+
 
 
 const Title = styled.h2`
@@ -171,10 +231,11 @@ font-weight: 700;
 line-height: 26px;
 letter-spacing: 0em;
 text-align: right;
-padding: 12px 16px;
+padding: 12px 10px;
 text-decoration: none;
 display: block;
 text-align: left;
+margin-bottom:-20px;
 
 `
 
@@ -193,7 +254,7 @@ padding-top:3px;
 
 const CartCard = styled.div`
 
-padding: 15px;
+padding: 25px;
 display:flex;
 align-items:center;
 justify-content:center;
@@ -211,12 +272,6 @@ justify-content:center;
   }
 `;
 
-const CartImageHolder = styled.div`
-  display: flex;
-  height: 100px;
-  flex-diretion: column;
-  justify-content: center;
-`;
 
 const CartImage = styled.img`
 height: 100px;
@@ -224,6 +279,7 @@ width: 100px;
 left: 10px;
 top: 135px;
 border-radius: 0px;
+margin-bottom:50px;
 
 
   overflow: hidden;
@@ -232,23 +288,9 @@ border-radius: 0px;
   }
 `;
 
-const CartName = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  @media (max-width: 600px) {
-    grid-area: name;
-  }
-`;
 
-const CartPrice = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  @media (max-width: 600px) {
-    grid-area: price;
-  }
-`;
+
+
 
 const CartQuantity = styled.div`
   display: flex;
@@ -266,15 +308,6 @@ padding-left:10px;
   }
 `;
 
-const CartCost = styled.div`
-  
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  @media (max-width: 600px) {
-    grid-area: cost;
-  }
-`;
 
 const QuantityButtonDecrement = styled.div`
 border: 1px solid #1D1F22;
@@ -311,16 +344,11 @@ flex:1;
 padding:0 15px;
 margin-right:15px;
 padding-right:15px;
+position:relative;
 
 `
 
-const Total = styled.div`
-flex:1;
-padding:0 15px;
-margin-right:15px;
-padding-right:15px;
 
-`
 
 const QuantityButtonIncrement = styled.div`
 border: 1px solid #1D1F22;
@@ -338,25 +366,7 @@ border: 1px solid #1D1F22;
   }
 `;
 
-const DeleteButton = styled.div`
-  cursor: pointer;
-  &:hover {
-    transition: all 0.2s ease;
-    filter: invert(76%) sepia(76%) saturate(2224%) hue-rotate(295deg) brightness(87%) contrast(98%);
-  }
-`;
 
-const StyledLink = styled.p`
-  text-decoration: none;
-
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-  }
-`;
 
 const Buttons = styled.div`
   display: flex;
@@ -364,6 +374,7 @@ const Buttons = styled.div`
   justify-content: space-evenly;
   margin-right:10px;
   height: 85px;
+  position:relative;
 
 `;
 

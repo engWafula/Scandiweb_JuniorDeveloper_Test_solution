@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import product from '../assets/product.png'
 import {mobile} from '../responsive'
 
+
 export default class Cart extends Component {
   render() {
     return (

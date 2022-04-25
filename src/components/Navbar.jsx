@@ -6,9 +6,10 @@ import  styled from 'styled-components'
 import MiniCart from './MiniCart'
 import {mobile} from '../responsive'
 import Currencies from './Currencies'
+import  {connect} from  'react-redux'
 
 
-export default class Navbar extends Component {
+ class Navbar extends Component {
 
 
   render() {
@@ -29,6 +30,9 @@ export default class Navbar extends Component {
           <Currencies/>
           <Basket>
           <MiniCart/> 
+          <Number>
+        {this.props.numberCart}
+          </Number>
           </Basket>
         </RightContent>
         </Wrapper>
@@ -36,6 +40,13 @@ export default class Navbar extends Component {
     )
   }
 }
+
+const mapStateToProps = state =>{
+  return{
+      numberCart:state.cart.numberCart
+  }
+}
+export default connect(mapStateToProps,null)(Navbar)
 
 
 const Container = styled.div`
@@ -45,9 +56,38 @@ const Container = styled.div`
   })}
 `;
 
+
+const Number = styled.div`
+display:flex,
+opacity: 0;
+border-radius: 50%;
+background-color: black;
+text-align:center;
+color:white;
+width: 20px;
+height: 20px;
+align-items: center;
+justify-content: center;
+position: absolute;
+top: 14px;
+right: 45px;
+z-index: 5;
+transition: all 0.5s ease;
+padding: 4px;
+${mobile({
+  padding:'5px',
+  width: '15px',
+height: '15px',
+right:'30px',
+top:'23px'
+
+  })}
+
+`
+
 const Basket =styled.div`
 ${mobile({
-  marginBottom:'10px'
+  marginBottom:'2px'
 
   })}
 `
